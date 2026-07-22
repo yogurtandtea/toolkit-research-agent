@@ -1,0 +1,13 @@
+httpx>=0.27.0
+# --- Live-mode pipeline dependencies (agents/discover.py, crawler.py, extractor.py) ---
+# Static mode (run_pipeline.py with no flags) only needs httpx's stdlib-adjacent deps
+# already covered above; everything else in static mode is Python stdlib
+# (json, csv, sqlite3, dataclasses, asyncio, logging, pathlib).
+
+# --- Optional: exercising the live pipeline end-to-end ---
+# firecrawl-py>=1.0.0        # if you prefer the official SDK over raw httpx calls in crawler.py/discover.py
+# anthropic>=0.34.0          # if you prefer the official SDK over raw httpx calls in extractor.py
+# composio-core>=0.5.0       # for wiring Composio's own MCP/tool-calling layer into the pipeline
+
+# --- Website build tooling (optional, only needed to rebuild tailwind.css) ---
+# tailwindcss is compiled via npm/npx, not pip -- see website/README section in the main README.

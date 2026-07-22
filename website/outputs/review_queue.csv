@@ -1,0 +1,12 @@
+App,Category,Confidence,Reason,Evidence
+Gladly,Support and Helpdesk,58,below confidence threshold,https://developer.gladly.com/
+Lark (Larksuite),Communications and Messaging,64,below confidence threshold,https://open.larksuite.com/document
+Pumble,Communications and Messaging,62,below confidence threshold,https://pumble.com/help/integrations-and-api/incoming-webhooks/
+fanbasis,Ecommerce,30,below confidence threshold,https://fanbasis.com/
+SE Ranking,"Data, SEO and Scraping",62,below confidence threshold,https://seranking.com/api.html
+MrScraper,"Data, SEO and Scraping",55,below confidence threshold,https://docs.mrscraper.com/
+Waterfall.io,"Data, SEO and Scraping",25,below confidence threshold,
+Paygent Connect,Finance and Fintech,45,below confidence threshold,
+iPayX,Finance and Fintech,25,below confidence threshold,
+Reducto,"AI, Research and Media-native",58,below confidence threshold,https://reducto.ai/
+YouTube Transcript,"AI, Research and Media-native",60,below confidence threshold,https://transcriptapi.com/

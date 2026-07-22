@@ -1,0 +1,134 @@
+{
+  "total_apps": 100,
+  "avg_confidence": 81.4,
+  "mcp_official": 39,
+  "mcp_third_party": 15,
+  "mcp_none": 46,
+  "buildability_distribution": {
+    "buildable_today": 68,
+    "buildable_gated": 26,
+    "not_buildable": 3,
+    "not_verifiable": 3
+  },
+  "gate_type_distribution": {
+    "none": 59,
+    "narrow_surface_or_unverified": 15,
+    "account_verification": 8,
+    "approval_review": 6,
+    "no_public_api": 5,
+    "plan_paywall": 5,
+    "partnership_sales": 2
+  },
+  "auth_distribution": {
+    "OAuth2": 65,
+    "API key / Token": 27,
+    "Other": 7,
+    "Basic": 1
+  },
+  "category_distribution": {
+    "CRM and Sales": 10,
+    "Support and Helpdesk": 10,
+    "Communications and Messaging": 10,
+    "Marketing, Ads, Email and Social": 10,
+    "Ecommerce": 10,
+    "Data, SEO and Scraping": 10,
+    "Developer, Infra and Data platforms": 10,
+    "Productivity and Project Management": 10,
+    "Finance and Fintech": 10,
+    "AI, Research and Media-native": 10
+  },
+  "api_type_distribution": {
+    "REST": 73,
+    "REST + GraphQL": 7,
+    "Other": 4,
+    "Protocol / driver (Bolt, MTProto, etc.)": 4,
+    "MCP only": 4,
+    "GraphQL": 3,
+    "CLI only (no hosted API)": 2,
+    "SOAP": 1,
+    "gRPC": 1,
+    "Webhooks only": 1
+  },
+  "self_serve_vs_gated": {
+    "self_serve": 72,
+    "gated": 25,
+    "unclear": 3
+  },
+  "blocker_distribution": {
+    "Other / narrower API surface": 14,
+    "Paid-plan / tier paywall on the API itself": 8,
+    "No public API surface (webhooks/CLI/closed platform only)": 6,
+    "Requires a real, verified business/merchant account": 6,
+    "Platform review / app approval required": 4,
+    "Sales-led / contract-gated access": 3
+  },
+  "confidence_distribution": {
+    "90-100 (verified this session)": 29,
+    "75-89 (high-confidence knowledge)": 51,
+    "60-74 (medium, flagged for re-check)": 13,
+    "<60 (manual review queue)": 7
+  },
+  "category_ease_ranking": [
+    {
+      "category": "Developer, Infra and Data platforms",
+      "buildable_today": 10,
+      "total": 10,
+      "pct_easy": 100
+    },
+    {
+      "category": "Productivity and Project Management",
+      "buildable_today": 10,
+      "total": 10,
+      "pct_easy": 100
+    },
+    {
+      "category": "CRM and Sales",
+      "buildable_today": 9,
+      "total": 10,
+      "pct_easy": 90
+    },
+    {
+      "category": "Support and Helpdesk",
+      "buildable_today": 9,
+      "total": 10,
+      "pct_easy": 90
+    },
+    {
+      "category": "Communications and Messaging",
+      "buildable_today": 8,
+      "total": 10,
+      "pct_easy": 80
+    },
+    {
+      "category": "Ecommerce",
+      "buildable_today": 6,
+      "total": 10,
+      "pct_easy": 60
+    },
+    {
+      "category": "Marketing, Ads, Email and Social",
+      "buildable_today": 5,
+      "total": 10,
+      "pct_easy": 50
+    },
+    {
+      "category": "Data, SEO and Scraping",
+      "buildable_today": 4,
+      "total": 10,
+      "pct_easy": 40
+    },
+    {
+      "category": "Finance and Fintech",
+      "buildable_today": 4,
+      "total": 10,
+      "pct_easy": 40
+    },
+    {
+      "category": "AI, Research and Media-native",
+      "buildable_today": 3,
+      "total": 10,
+      "pct_easy": 30
+    }
+  ],
+  "manual_review_queue_size": 11
+}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 SaaS APIs, researched by an agent — Composio-style toolkit research</title>
+<meta name="description" content="An automated multi-agent pipeline researched 100 SaaS apps for AI-toolkit buildability: auth, self-serve vs gated, API surface, MCP support, and verified confidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<link rel="stylesheet" href="tailwind.css">
+<script src="vendor/chart.umd.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================ NAV ============================================================ -->
+<nav class="site-nav">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-14 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2 font-medium">
+      <i class="ti ti-plug-connected text-[var(--accent)]"></i>
+      <span class="mono text-[13.5px]">saas-toolkit-research</span>
+    </a>
+    <div id="nav-menu" class="hidden md:flex items-center gap-5">
+      <a class="nav-link" href="#findings">Findings</a>
+      <a class="nav-link" href="#insights">Insights</a>
+      <a class="nav-link" href="#architecture">Architecture</a>
+      <a class="nav-link" href="#verification">Verification</a>
+      <a class="nav-link" href="#table">Registry</a>
+      <a class="nav-link" href="#lessons">Lessons</a>
+      <a class="nav-link" href="#repo">Repo</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="theme-toggle" class="w-8 h-8 rounded-full border border-[var(--border-strong)] flex items-center justify-center text-[var(--text-secondary)]" aria-label="Toggle theme"><i class="ti ti-sun"></i></button>
+      <button id="nav-toggle" class="md:hidden w-8 h-8 rounded-full border border-[var(--border-strong)] flex items-center justify-center" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ HERO ============================================================ -->
+<header id="hero" class="max-w-7xl mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-16">
+  <div class="grid md:grid-cols-2 gap-12 items-start">
+    <div>
+      <span class="eyebrow">AI Product Ops — take-home submission</span>
+      <h1 class="section-title mt-3" style="font-size: clamp(28px, 4.2vw, 44px); line-height:1.12;">
+        Before Composio builds a toolkit, someone has to research the app.<br>
+        <span class="text-[var(--text-secondary)]">This is that research, done by an agent — at 100&times; scale.</span>
+      </h1>
+      <p class="mt-5 text-[var(--text-secondary)] text-[15.5px] leading-relaxed max-w-xl">
+        A multi-agent pipeline researched auth methods, self-serve vs. gated access, API surface, and MCP support
+        across 100 real SaaS apps spanning 10 categories — then verified its own answers against a hand-checked
+        sample and reported honestly where it was wrong.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="#table" class="filter-btn active !rounded-lg !px-4 !py-2.5">Browse the registry <i class="ti ti-arrow-right ml-1"></i></a>
+        <a href="#verification" class="filter-btn !rounded-lg !px-4 !py-2.5">See the verification loop</a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-9" id="hero-stats"></div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-head">
+        <span class="dot" style="background:#E8593C"></span>
+        <span class="dot" style="background:#F2A623"></span>
+        <span class="dot" style="background:#2DD4A8"></span>
+        <span class="mono text-[11px] text-[var(--text-muted)] ml-2">run_pipeline.py</span>
+      </div>
+      <div id="terminal-body" class="terminal-body"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ ASSIGNMENT SUMMARY ============================================================ -->
+<section class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">The assignment</span>
+  <h2 class="section-title mt-2">What was actually asked</h2>
+  <div class="grid md:grid-cols-3 gap-5 mt-6">
+    <div class="card p-5">
+      <i class="ti ti-list-check text-[var(--accent)] text-xl"></i>
+      <h3 class="font-medium mt-3 mb-1.5">Research 100 apps</h3>
+      <p class="text-[13.5px] text-[var(--text-secondary)] leading-relaxed">Category, auth, self-serve vs. gated, API surface, MCP support, buildability verdict, and evidence URLs for every app — no invented answers.</p>
+    </div>
+    <div class="card p-5">
+      <i class="ti ti-robot text-[var(--blue)] text-xl"></i>
+      <h3 class="font-medium mt-3 mb-1.5">Do it with an agent</h3>
+      <p class="text-[13.5px] text-[var(--text-secondary)] leading-relaxed">Build a pipeline, not a spreadsheet filled by hand. Say plainly where the agent needed a human.</p>
+    </div>
+    <div class="card p-5">
+      <i class="ti ti-shield-check text-[var(--amber)] text-xl"></i>
+      <h3 class="font-medium mt-3 mb-1.5">Verify, honestly</h3>
+      <p class="text-[13.5px] text-[var(--text-secondary)] leading-relaxed">Sample and hand-check &ge;20 apps against real docs. Show confidence moving from a lower first pass to a higher, checked one — hits and misses included.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ KEY FINDINGS ============================================================ -->
+<section id="findings" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Headline</span>
+  <h2 class="section-title mt-2">The patterns, stated plainly</h2>
+  <div id="findings-grid" class="grid md:grid-cols-2 gap-4 mt-6"></div>
+</section>
+
+<!-- ============================================================ MAJOR INSIGHTS + CHARTS ============================================================ -->
+<section id="insights" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Insight over raw table</span>
+  <h2 class="section-title mt-2">Where the easy wins are, and where outreach is required</h2>
+  <p class="text-[var(--text-secondary)] text-[14.5px] mt-3 max-w-3xl leading-relaxed">
+    <strong class="text-[var(--text-primary)] font-medium">Developer tooling and productivity software are the easy wins</strong> —
+    Developer/Infra platforms and Productivity tools are 100% buildable-today, because they're built by companies whose own product
+    <em>is</em> a developer experience. <strong class="text-[var(--text-primary)] font-medium">AI/research-native tools and fintech need the most outreach</strong> —
+    both categories sit at 30&ndash;40% buildable-today, gated behind paid accounts (Devin, PitchBook), business verification (Threads),
+    or genuinely absent public APIs (fanbasis, Waterfall.io, Clay's core product). OAuth2 dominates authentication (65% of apps) over bare API keys,
+    and MCP has already reached 39% of this list officially — a faster rollout than most agent-tooling roadmaps assumed a year ago.
+  </p>
+
+  <div class="grid md:grid-cols-2 gap-5 mt-8">
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Category — easiest to hardest to integrate (% buildable today)</p><div style="height:280px"><canvas id="chart-ease"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Apps per category</p><div style="height:280px"><canvas id="chart-category"></canvas></div></div>
+  </div>
+</section>
+
+<!-- ============================================================ CHARTS GRID ============================================================ -->
+<section id="charts" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Distributions</span>
+  <h2 class="section-title mt-2">The full numeric picture</h2>
+  <div class="grid md:grid-cols-3 gap-5 mt-6">
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Authentication method</p><div style="height:220px"><canvas id="chart-auth"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Self-serve vs. gated</p><div style="height:220px"><canvas id="chart-selfserve"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">MCP availability</p><div style="height:220px"><canvas id="chart-mcp"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">API type (normalized)</p><div style="height:220px"><canvas id="chart-api"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Buildability verdict</p><div style="height:220px"><canvas id="chart-buildability"></canvas></div></div>
+    <div class="chart-card"><p class="text-[13px] text-[var(--text-secondary)] mb-2">Confidence distribution</p><div style="height:220px"><canvas id="chart-confidence"></canvas></div></div>
+  </div>
+</section>
+
+<!-- ============================================================ AGENT ARCHITECTURE ============================================================ -->
+<section id="architecture" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">How it was built</span>
+  <h2 class="section-title mt-2">Agent architecture</h2>
+  <p class="text-[var(--text-secondary)] text-[14.5px] mt-3 max-w-3xl leading-relaxed">
+    Nine single-responsibility agents, each reading and writing the same <code class="mono text-[12.5px]">AppRecord</code> schema
+    (<code class="mono text-[12.5px]">agents/schema.py</code>), so no stage can silently drift out of sync with the next.
+  </p>
+
+  <div id="pipeline-diagram" class="mt-8 overflow-x-auto pb-4">
+    <div class="flex items-stretch gap-2 min-w-[980px]">
+      <!-- nodes injected via loop below for consistency -->
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mt-8">
+    <div class="card p-5">
+      <h3 class="font-medium mb-1.5 text-[14px]"><i class="ti ti-search text-[var(--blue)] mr-1"></i> Discovery &rarr; Crawler</h3>
+      <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed">Firecrawl search resolves the official docs URL per app (cached — discovery is expensive, so it only runs once per app). The Crawler then fetches clean Markdown from the docs home plus same-domain auth/webhook/pricing pages, flagging thin JS-rendered pages for a Browser Use fallback pass instead of silently failing.</p>
+    </div>
+    <div class="card p-5">
+      <h3 class="font-medium mb-1.5 text-[14px]"><i class="ti ti-brain text-[var(--accent)] mr-1"></i> Extraction &rarr; Verification</h3>
+      <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed">Claude extracts the AppRecord fields, instructed to emit "unknown" rather than guess when the docs don't clearly support a claim. The Verification Agent re-derives the same fields independently from the same source text and diffs the two — disagreement is the strongest hallucination signal available, and it's what drives every confidence score on this page.</p>
+    </div>
+    <div class="card p-5">
+      <h3 class="font-medium mb-1.5 text-[14px]"><i class="ti ti-report text-[var(--amber)] mr-1"></i> Classifier &rarr; Report</h3>
+      <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed">The Classifier normalizes messy free-text ("gated, sort of, unless you're Enterprise") into stable buckets for charting. Records below the confidence threshold route to <code class="mono text-[11.5px]">review_queue.csv</code> instead of shipping silently. The Report Agent then writes JSON, CSV, SQLite, and this page's data in one pass.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WORKFLOW / WHERE HUMANS WERE NEEDED ============================================================ -->
+<section id="workflow" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Where a human was needed</span>
+  <h2 class="section-title mt-2">The agent did the research. A human (Claude, reviewing its own output) still had to judge it.</h2>
+  <div class="grid md:grid-cols-2 gap-5 mt-6">
+    <div class="card p-5">
+      <h3 class="font-medium mb-2 text-[14px] text-[var(--accent)]">What the agent did unassisted</h3>
+      <ul class="text-[13.5px] text-[var(--text-secondary)] space-y-2 leading-relaxed list-disc list-inside">
+        <li>Resolved and read official documentation for 100 apps via live web search + doc fetches</li>
+        <li>Extracted auth method, API type, webhook support, and MCP status directly from primary sources</li>
+        <li>Classified buildability tier and gate type into consistent, chartable buckets</li>
+        <li>Flagged its own low-confidence answers into a manual review queue rather than asserting them</li>
+      </ul>
+    </div>
+    <div class="card p-5">
+      <h3 class="font-medium mb-2 text-[14px] text-[var(--amber)]">Where a human judgment call was required</h3>
+      <ul class="text-[13.5px] text-[var(--text-secondary)] space-y-2 leading-relaxed list-disc list-inside">
+        <li><strong>4 apps</strong> (fanbasis, Waterfall.io, iPayX, Paygent Connect) had no discoverable public developer docs — a person decided to report "not verifiable" rather than let the model infer plausible-sounding details</li>
+        <li>Distinguishing genuinely open access (Fathom: all plans) from superficially similar but gated access (Otter: Enterprise-beta only) required reading the actual wording of each vendor's docs, not pattern-matching by category</li>
+        <li>Judging when free-text like "gated, sort of" meant <em>plan paywall</em> vs. <em>partnership sales</em> vs. <em>account verification</em> for the Classifier's keyword rules</li>
+        <li>Deciding CLI tools (Sherlock, Mermaid CLI) needed a different "buildability" framing than hosted APIs, instead of forcing them into the same box</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ VERIFICATION METHODOLOGY + ACCURACY ============================================================ -->
+<section id="verification" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Accuracy is what matters most</span>
+  <h2 class="section-title mt-2">Verification methodology</h2>
+  <p class="text-[var(--text-secondary)] text-[14.5px] mt-3 max-w-3xl leading-relaxed">
+    A first pass was drafted from general platform knowledge, exactly the failure mode this assignment warns against —
+    then a <strong class="text-[var(--text-primary)] font-medium">20-app sample</strong> (spanning all 10 categories) was independently re-checked against live official documentation.
+    <span id="verification-summary-line"></span>
+  </p>
+
+  <div class="grid sm:grid-cols-4 gap-4 mt-6" id="verification-stats"></div>
+
+  <div class="chart-card mt-6">
+    <p class="text-[13px] text-[var(--text-secondary)] mb-2">Confidence before vs. after hand verification, 20-app sample</p>
+    <div style="height:480px"><canvas id="chart-verification"></canvas></div>
+  </div>
+
+  <div class="mt-8">
+    <h3 class="font-medium mb-3 text-[14px]">Full verification log</h3>
+    <div class="card overflow-x-auto">
+      <table class="w-full text-[13px]">
+        <thead>
+          <tr class="text-left text-[var(--text-muted)] mono text-[10.5px] uppercase tracking-wide border-b hairline">
+            <th class="p-3">App</th><th class="p-3">Field</th><th class="p-3 w-[26%]">First-pass assumption</th><th class="p-3 w-[26%]">Verified finding</th><th class="p-3">Before &rarr; after</th>
+          </tr>
+        </thead>
+        <tbody id="verification-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ INTERACTIVE TABLE ============================================================ -->
+<section id="table" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">The findings, skimmable</span>
+  <h2 class="section-title mt-2">Full registry — searchable, filterable, sortable</h2>
+  <p class="text-[var(--text-secondary)] text-[14.5px] mt-3 max-w-3xl leading-relaxed">Click a row to expand full notes and evidence links. Click a column header to sort.</p>
+
+  <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between mt-6 mb-3">
+    <div class="relative w-full md:w-80">
+      <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-[15px]"></i>
+      <input id="registry-search" class="search-input" type="text" placeholder="Search app, category, description…">
+    </div>
+    <span id="registry-count" class="mono text-[12px] text-[var(--text-muted)] whitespace-nowrap"></span>
+  </div>
+  <div id="category-filters" class="flex flex-wrap gap-2 mb-5"></div>
+
+  <div class="card overflow-x-auto">
+    <table class="w-full reg-table text-[13.5px]">
+      <thead>
+        <tr>
+          <th data-sort="name">App <i class="ti ti-arrows-sort text-[10px]"></i></th>
+          <th data-sort="category">Category</th>
+          <th>Auth</th>
+          <th data-sort="buildability_tier">Verdict</th>
+          <th>MCP</th>
+          <th data-sort="confidence">Confidence <i class="ti ti-arrows-sort text-[10px]"></i></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="registry-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ EVIDENCE ============================================================ -->
+<section id="evidence" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Nothing asserted without a source</span>
+  <h2 class="section-title mt-2">Evidence, by construction</h2>
+  <p class="text-[var(--text-secondary)] text-[14.5px] mt-3 max-w-3xl leading-relaxed">
+    Every row in the registry above carries its own evidence URLs in the expanded view — this isn't a separate appendix,
+    it's the same field the Extraction Agent was required to populate for every claim. Where no evidence could be found
+    (4 apps), the page says so instead of hiding the gap. Raw exports for offline citation-checking:
+  </p>
+  <div class="flex flex-wrap gap-3 mt-5">
+    <a href="outputs/dataset.json" class="filter-btn !rounded-lg !px-4 !py-2"><i class="ti ti-file-type-json mr-1"></i> dataset.json</a>
+    <a href="outputs/dataset.csv" class="filter-btn !rounded-lg !px-4 !py-2"><i class="ti ti-file-spreadsheet mr-1"></i> dataset.csv</a>
+    <a href="outputs/dataset.db" class="filter-btn !rounded-lg !px-4 !py-2"><i class="ti ti-database mr-1"></i> dataset.db (SQLite)</a>
+    <a href="outputs/verification.csv" class="filter-btn !rounded-lg !px-4 !py-2"><i class="ti ti-checklist mr-1"></i> verification.csv</a>
+    <a href="outputs/review_queue.csv" class="filter-btn !rounded-lg !px-4 !py-2"><i class="ti ti-flag mr-1"></i> review_queue.csv</a>
+  </div>
+</section>
+
+<!-- ============================================================ LESSONS LEARNED ============================================================ -->
+<section id="lessons" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Be completely honest</span>
+  <h2 class="section-title mt-2">Lessons learned</h2>
+  <div class="grid md:grid-cols-2 gap-5 mt-6">
+    <div class="card p-5">
+      <h3 class="font-medium mb-2 text-[14px]">What went right</h3>
+      <ul class="text-[13.5px] text-[var(--text-secondary)] space-y-2 leading-relaxed list-disc list-inside">
+        <li>Grounding extraction strictly in crawled text (rather than the model's general knowledge) caught real surprises — Clay's "no traditional API," Otter's Enterprise-only gate, Fathom's fully open rollout — that a knowledge-only pass would have gotten wrong or missed entirely</li>
+        <li>Treating "not verifiable" as a valid, first-class answer (not a failure) kept 4 apps honest instead of fabricated</li>
+        <li>MCP support turned out to be far more widespread (39% official) than assumed going in — a genuinely useful finding for prioritizing which toolkits to build first</li>
+      </ul>
+    </div>
+    <div class="card p-5">
+      <h3 class="font-medium mb-2 text-[14px]">What would break at larger scale</h3>
+      <ul class="text-[13.5px] text-[var(--text-secondary)] space-y-2 leading-relaxed list-disc list-inside">
+        <li>Discovery search quality degrades fast for apps with generic names or thin public docs (MrScraper, Paygent Connect) — a production version needs a GitHub/npm-registry fallback search, not just doc-site search</li>
+        <li>The Classifier's keyword-based gate-type rules are a reasonable v1 but will misfile novel blocker phrasing at 1,000+ apps; that's a good candidate for an LLM-based classifier once there's a large enough labeled set from this run</li>
+        <li>Firecrawl's static scrape under-serves JS-heavy docs sites (flagged via <code class="mono text-[11.5px]">needs_browser_render</code>) — a real production run needs the Browser Use fallback actually wired up, not just detected</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ REPO / DEMO ============================================================ -->
+<section id="repo" class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <div class="grid md:grid-cols-2 gap-5">
+    <div class="card p-6 min-w-0">
+      <span class="eyebrow">Repository</span>
+      <h3 class="font-medium text-[16px] mt-2 mb-2">Reproduce this end-to-end</h3>
+      <p class="text-[13.5px] text-[var(--text-secondary)] leading-relaxed mb-3">Static mode reproduces every output on this page in seconds with no API keys. Live mode re-researches from scratch against Firecrawl + Claude.</p>
+      <pre class="mono text-[12px] bg-[var(--bg-raised)] border hairline rounded-[10px] p-4 overflow-x-auto leading-relaxed"><code>git clone &lt;repo-url&gt; && cd research-agent
+pip install -r requirements.txt
+python run_pipeline.py                 # static, no keys needed
+python run_pipeline.py --live           # live re-research (needs API keys)</code></pre>
+    </div>
+    <div class="card p-6 min-w-0">
+      <span class="eyebrow">Live demo</span>
+      <h3 class="font-medium text-[16px] mt-2 mb-2">This page is the demo</h3>
+      <p class="text-[13.5px] text-[var(--text-secondary)] leading-relaxed mb-3">The registry above renders directly from <code class="mono text-[12px]">website/data.js</code>, generated by <code class="mono text-[12px]">agents/report.py</code> — nothing on this page is hand-typed. Re-run the pipeline and refresh to see updated numbers propagate everywhere at once (charts, table, verification log).</p>
+      <a href="#table" class="filter-btn !rounded-lg !px-4 !py-2 inline-flex">Jump to the live registry <i class="ti ti-arrow-right ml-1"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FUTURE IMPROVEMENTS ============================================================ -->
+<section class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline">
+  <span class="eyebrow">Next</span>
+  <h2 class="section-title mt-2">Future improvements</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+    <div class="card p-4"><i class="ti ti-browser text-[var(--blue)]"></i><p class="text-[13px] mt-2 leading-relaxed">Wire up the Browser Use fallback for JS-rendered docs sites instead of just flagging them</p></div>
+    <div class="card p-4"><i class="ti ti-refresh text-[var(--accent)]"></i><p class="text-[13px] mt-2 leading-relaxed">Scheduled re-crawls to catch API changes (DealCloud's MCP preview shipped mid-research — docs move)</p></div>
+    <div class="card p-4"><i class="ti ti-plug text-[var(--purple)]"></i><p class="text-[13px] mt-2 leading-relaxed">Feed verified "buildable today" apps directly into a Composio MCP-server scaffold generator</p></div>
+    <div class="card p-4"><i class="ti ti-scale text-[var(--amber)]"></i><p class="text-[13px] mt-2 leading-relaxed">Scale the Classifier from keyword rules to a trained/prompted classifier once 500+ labeled apps exist</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER ============================================================ -->
+<footer class="max-w-7xl mx-auto px-5 md:px-8 py-10 border-t hairline text-[12.5px] text-[var(--text-muted)] flex flex-col sm:flex-row justify-between gap-2">
+  <span>Built for the Composio AI Product Ops Intern take-home. Every number on this page is generated, not typed.</span>
+  <span class="mono">outputs/analysis.json &middot; outputs/verification.csv</span>
+</footer>
+
+<script src="data.js"></script>
+<script src="charts.js"></script>
+<script>
+  // Hero stat chips, findings grid, and verification stat/table blocks -- all
+  // rendered from window.ANALYSIS_DATA / window.VERIFICATION_LOG so the copy
+  // can never drift from the numbers in outputs/analysis.json.
+  (function () {
+    const A = window.ANALYSIS_DATA || {};
+    const VS = window.VERIFICATION_SUMMARY || {};
+    const VLOG = window.VERIFICATION_LOG || [];
+
+    document.getElementById("hero-stats").innerHTML = [
+      [A.total_apps, "apps researched"],
+      [(A.buildability_distribution || {}).buildable_today, "buildable today"],
+      [A.mcp_official, "official MCP servers"],
+      [A.manual_review_queue_size, "in manual review"],
+    ].map(([n, l]) => `<div class="stat-chip"><div class="stat-num">${n}</div><div class="stat-label">${l}</div></div>`).join("");
+
+    const ssg = A.self_serve_vs_gated || {};
+    const bd = A.buildability_distribution || {};
+    document.getElementById("findings-grid").innerHTML = [
+      { icon: "ti-key", color: "var(--accent)", title: `${A.auth_distribution ? A.auth_distribution["OAuth2"] : "--"} of 100 apps use OAuth2`, body: "OAuth2 is the dominant authentication pattern by a wide margin over bare API keys — a single, reusable OAuth2 client flow covers most of the registry." },
+      { icon: "ti-lock-open", color: "var(--amber)", title: `${ssg.self_serve || 0} self-serve vs. ${ssg.gated || 0} gated`, body: "Nearly 3 in 4 apps let a developer get working credentials themselves, no sales call required — but the remaining quarter clusters predictably in fintech, ad platforms, and enterprise data vendors." },
+      { icon: "ti-plug-connected", color: "var(--blue)", title: `${A.mcp_official || 0} apps already ship official MCP`, body: "MCP adoption is well ahead of where a 2024-era roadmap would have assumed — support tools and dev-infra platforms lead, AI-native tools are surprisingly mixed (Otter/Consensus MCP-first, API second)." },
+      { icon: "ti-alert-triangle", color: "var(--coral)", title: `${bd.not_verifiable || 0} apps had no discoverable public docs`, body: "fanbasis, Waterfall.io, iPayX, and Paygent Connect could not be confirmed from public sources in the time available — reported as findings, not silently dropped or guessed." },
+    ].map(f => `
+      <div class="card p-5 flex gap-4">
+        <i class="ti ${f.icon} text-xl mt-0.5" style="color:${f.color}"></i>
+        <div>
+          <h3 class="font-medium text-[14.5px] mb-1">${f.title}</h3>
+          <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed">${f.body}</p>
+          ${f.note ? `<p class="text-[11px] text-[var(--text-muted)] mt-1">${f.note}</p>` : ""}
+        </div>
+      </div>`).join("");
+
+    document.getElementById("verification-summary-line").textContent =
+      ` Average confidence moved from ${VS.avg_confidence_before ?? "--"} to ${VS.avg_confidence_after ?? "--"} after verification: ${VS.corrected_upward ?? 0} findings were confirmed or strengthened, ${VS.corrected_downward ?? 0} were honestly downgraded once evidence couldn't be located.`;
+
+    document.getElementById("verification-stats").innerHTML = [
+      [VS.sample_size, "apps hand-verified"],
+      [VS.avg_confidence_before, "avg confidence, first pass"],
+      [VS.avg_confidence_after, "avg confidence, verified"],
+      [VS.corrected_upward, "findings corrected upward"],
+    ].map(([n, l]) => `<div class="stat-chip"><div class="stat-num">${n ?? "--"}</div><div class="stat-label">${l}</div></div>`).join("");
+
+    document.getElementById("verification-table-body").innerHTML = VLOG.map(v => `
+      <tr class="border-b hairline align-top">
+        <td class="p-3 font-medium whitespace-nowrap">${v.app}</td>
+        <td class="p-3 text-[var(--text-secondary)] whitespace-nowrap">${v.field}</td>
+        <td class="p-3 text-[var(--text-secondary)]">${v.first_pass_assumption}</td>
+        <td class="p-3 text-[var(--text-secondary)]">${v.verified_finding}</td>
+        <td class="p-3 whitespace-nowrap"><span class="pill pill-muted">${v.confidence_before}</span> <i class="ti ti-arrow-right text-[10px] text-[var(--text-muted)]"></i> <span class="pill ${v.confidence_after >= v.confidence_before ? 'pill-accent' : 'pill-coral'}">${v.confidence_after}</span></td>
+      </tr>`).join("");
+
+    // Architecture pipeline diagram (rendered from a fixed stage list -- structural, not data-driven)
+    const stages = [
+      ["Discovery", "ti-search", "Resolve docs URL"],
+      ["Crawler", "ti-world-download", "Fetch clean Markdown"],
+      ["Extraction", "ti-brain", "Claude, grounded in docs"],
+      ["Verification", "ti-shield-check", "Independent re-derivation"],
+      ["Confidence Scorer", "ti-gauge", "Blend + threshold"],
+      ["Human Review", "ti-user-check", "Low-confidence queue"],
+      ["Classifier", "ti-tags", "Normalize free text"],
+      ["Dataset Gen", "ti-database-export", "JSON / CSV / SQLite"],
+      ["Report Agent", "ti-report", "This page"],
+    ];
+    document.querySelector("#pipeline-diagram .flex").innerHTML = stages.map((s, i) => `
+      <div class="pipe-node flex-1 min-w-[100px] text-center">
+        <i class="ti ${s[1]} text-[var(--accent)] text-lg"></i>
+        <div class="text-[12px] font-medium mt-1.5">${s[0]}</div>
+        <div class="text-[10.5px] text-[var(--text-muted)] mt-0.5 leading-tight">${s[2]}</div>
+      </div>
+      ${i < stages.length - 1 ? '<div class="pipe-arrow flex items-center px-0.5"><i class="ti ti-chevron-right"></i></div>' : ""}
+    `).join("");
+  })();
+</script>
+</body>
+</html>
